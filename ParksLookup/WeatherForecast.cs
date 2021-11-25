@@ -1,6 +1,6 @@
 using System;
 
-namespace ParksLookup.Solution
+namespace ParksLookup
 {
     public class WeatherForecast
     {
