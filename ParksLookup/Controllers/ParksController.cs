@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ParksLookup.Models;
 using System.Linq;
 
@@ -32,7 +33,7 @@ namespace ParksLookup.Controllers
       return CreatedAtAction(nameof(GetPark), new {id = park.ParkId}, park);
     }
 
-    [HttpGet("[id]")]
+    [HttpGet("{id}")]
     public async Task<ActionResult<Park>> GetPark(int id)
     {
       var park = await _db.Parks.FindAsync(id);
@@ -42,6 +43,33 @@ namespace ParksLookup.Controllers
         return NotFound();
       }
       return park;
+    }
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Park park)
+    {
+      if (id != park.ParkId)
+      {
+        return BadRequest();
+      }
+
+      _db.Entry(park).State = EntityState.Modified;
+
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if(!ParkExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+      return NoContent();
     }
   }
 }
