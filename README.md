@@ -45,8 +45,9 @@ A C# api application creating an api for state and national parks with full crud
 2. type in dotnet ef migrations add add[whatever you add]. into the terminal
 3. run dotnet ef database update in the terminal
 
-## Api Documentation
-to see detailed information on ParksLookups crud endpoints go to http://localhost:5000/index.html 
+## Swagger Documentation
+swagger ui allows for the understanding of the endpoints without touching the source code. 
+to see detailed information on ParksLookups crud endpoints go to http://localhost:5000/index.html this will allow for testing the endpoints without adding to the api. It has a try it out funtion for easy modification. 
 
 ## Known Bugs
 no known bugs
